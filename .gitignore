@@ -1,2 +1,3 @@
 .fastapi-practice-env
 __pycache__
+fastapi-practice.db

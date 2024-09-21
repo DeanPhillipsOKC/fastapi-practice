@@ -37,7 +37,7 @@ def create_comment(
     ),
     content: str = Body(..., min_length=10, max_length=50, regex="^[a-z\s]*$"),
     v: Optional[list[str]] = Query(['1.0', '1.1', '1.2']),
-    comment_id: int = Path(None, gt=5, le=10)
+    comment_id: int = Path(..., gt=5, le=10)
 ):
     return {
         'blog': blog,

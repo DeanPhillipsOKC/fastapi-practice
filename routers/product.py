@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Response, Header, Cookie
+from fastapi import APIRouter, Response, Header, Cookie, Form
 from fastapi.responses import HTMLResponse, PlainTextResponse
 from typing import Optional, List
 
@@ -12,6 +12,11 @@ products = [
 ]
 
 # This router shows some examples of custom responses, and headers
+
+@router.post('/')
+def create_product(name: str = Form(...)): # need to install python-multipart if you are going to use form data
+    products.append(name)
+    return products
 
 @router.get('/')
 def get_all_products():

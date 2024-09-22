@@ -7,6 +7,7 @@ from db import models
 from db.database import engine
 from exceptions import StoryException
 from dotenv import load_dotenv
+from fastapi.staticfiles import StaticFiles # Requires aiofile
 
 load_dotenv()
 
@@ -40,3 +41,5 @@ def story_exception_handler(request: Request, exc: StoryException):
 #     return PlainTextResponse(str(exc), status_code=400)
 
 models.Base.metadata.create_all(bind=engine)
+
+app.mount('/files', StaticFiles(directory='files'), name='files')

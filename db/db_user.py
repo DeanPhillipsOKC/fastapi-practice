@@ -20,6 +20,9 @@ def get_all_users(db: Session):
 def get_user(db: Session, id: int):
     return db.query(DbUser).filter(DbUser.id == id).first()
 
+def get_user_by_username(db: Session, username: str):
+    return db.query(DbUser).filter(DbUser.username == username).first()
+
 def update_user(db: Session, id: int, request: UserBase):
     user = db.query(DbUser).filter(DbUser.id == id)
     if not user.first():

@@ -1,12 +1,17 @@
-from fastapi import FastAPI, Request, HTTPException
+from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse
 from routers import blog_get, blog_post, user, article, product
+from auth import authentication
 from pydantic import BaseModel
 from db import models
 from db.database import engine
 from exceptions import StoryException
+from dotenv import load_dotenv
+
+load_dotenv()
 
 app = FastAPI()
+app.include_router(authentication.router)
 app.include_router(user.router)
 app.include_router(blog_get.router)
 app.include_router(blog_post.router)

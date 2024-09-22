@@ -1,6 +1,6 @@
 from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse
-from routers import blog_get, blog_post, user, article, product
+from routers import blog_get, blog_post, user, article, product, file
 from auth import authentication
 from pydantic import BaseModel
 from db import models
@@ -12,6 +12,7 @@ load_dotenv()
 
 app = FastAPI()
 app.include_router(authentication.router)
+app.include_router(file.router)
 app.include_router(user.router)
 app.include_router(blog_get.router)
 app.include_router(blog_post.router)

@@ -2,6 +2,7 @@ from fastapi import APIRouter, Response, Header, Cookie, Form
 from fastapi.responses import HTMLResponse, PlainTextResponse
 from typing import Optional, List
 from custom_log import log
+import time
 
 router = APIRouter(
     prefix='/product',
@@ -19,8 +20,13 @@ def create_product(name: str = Form(...)): # need to install python-multipart if
     products.append(name)
     return products
 
+async def time_consuming_functionality():
+    time.sleep(5)
+    return "OK"
+
 @router.get('/')
-def get_all_products():
+async def get_all_products():
+    await time_consuming_functionality()
     log(tag="INF", message="Getting all products")
     data = " " .join(products)
     response = Response(content=data, media_type="text/plain")

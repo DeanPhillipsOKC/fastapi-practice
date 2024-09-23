@@ -1,4 +1,5 @@
 from fastapi import APIRouter, File, UploadFile
+from fastapi.responses import FileResponse
 import shutil
 import os
 
@@ -7,6 +8,11 @@ router = APIRouter(
     prefix="/file",
     tags=["file"]
 )
+
+@router.get("/{name}", response_class=FileResponse)
+def download_file(name: str):
+    path = f"files/{name}"
+    return path
 
 @router.post("/")
 def upload_file(file: bytes = File(...)):

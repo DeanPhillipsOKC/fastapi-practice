@@ -1,6 +1,7 @@
 from fastapi import APIRouter, Response, Header, Cookie, Form
 from fastapi.responses import HTMLResponse, PlainTextResponse
 from typing import Optional, List
+from custom_log import log
 
 router = APIRouter(
     prefix='/product',
@@ -20,6 +21,7 @@ def create_product(name: str = Form(...)): # need to install python-multipart if
 
 @router.get('/')
 def get_all_products():
+    log(tag="INF", message="Getting all products")
     data = " " .join(products)
     response = Response(content=data, media_type="text/plain")
     response.set_cookie(key="test_cookie", value="test_cookie_value")

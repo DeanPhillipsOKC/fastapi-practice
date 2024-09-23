@@ -3,3 +3,4 @@ __pycache__
 fastapi-practice.db
 .env
 files/
+log.txt

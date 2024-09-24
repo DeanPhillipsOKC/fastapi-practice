@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Response, Header, Cookie, Form
+from fastapi import APIRouter, Response, Header, Cookie, Form, BackgroundTasks
 from fastapi.responses import HTMLResponse, PlainTextResponse
 from typing import Optional, List
 from custom_log import log
@@ -24,10 +24,13 @@ async def time_consuming_functionality():
     time.sleep(5)
     return "OK"
 
+def log_template_task(message: str):
+    log(tag="INF", message=message)
+
 @router.get('/')
-async def get_all_products():
+async def get_all_products(bt: BackgroundTasks):
     await time_consuming_functionality()
-    log(tag="INF", message="Getting all products")
+    bt.add_task(log_template_task, "Finished something time consuming")
     data = " " .join(products)
     response = Response(content=data, media_type="text/plain")
     response.set_cookie(key="test_cookie", value="test_cookie_value")

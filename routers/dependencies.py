@@ -19,3 +19,15 @@ def get_items(seperator: str = "--", headers = Depends(convert_headers)):
         "items": ['a', 'b', 'c'],
         "headers": headers
     }
+
+class Account:
+    def __init__(self, name: str, email: str):
+        self.name = name
+        self.email = email
+
+@router.post('/user')
+def create_user(name: str, email: str, password: str, account: Account = Depends()): # Type for depends is inferred
+    return {
+        'name': account.name,
+        'email': account.email
+    }
